@@ -20,4 +20,8 @@ public class Category {
     private String categoryName;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
 }

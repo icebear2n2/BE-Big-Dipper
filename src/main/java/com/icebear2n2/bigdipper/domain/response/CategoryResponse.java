@@ -37,8 +37,4 @@ public class CategoryResponse {
     public static CategoryResponse success(Category category) {
         return new CategoryResponse(true, "Success", new CategoryData(category));
     }
-
-    public static CategoryResponse failure(String message) {
-        return new CategoryResponse(false, message, null);
-    }
 }

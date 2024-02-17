@@ -52,7 +52,4 @@ public class UserResponse {
         return new UserResponse(true, "Success", new UserData(user));
     }
 
-    public static UserResponse failure(String message) {
-        return new UserResponse(false, message, null);
-    }
 }

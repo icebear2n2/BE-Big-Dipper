@@ -53,8 +53,4 @@ public class ProductResponse {
     public static ProductResponse success(Product product) {
         return new ProductResponse(true, "Success", new ProductData(product));
     }
-
-    public static ProductResponse failure(String message) {
-        return new ProductResponse(false, message, null);
-    }
 }

@@ -24,45 +24,53 @@ public class AddressService {
 
             addressRepository.save(savedAddress);
         } catch (Exception e) {
-            throw new RuntimeException("Internal server error.");
+            throw new RuntimeException("Failed to write address. Please check your request and try again.", e);
         }
     }
 
     public Page<AddressResponse> getAllByUser(Long userId, PageRequest pageRequest) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found."));
-        Page<Address> byUser = addressRepository.findByUser(user, pageRequest);
-        return byUser.map(AddressResponse::success);
+        try {
+            User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found."));
+            Page<Address> byUser = addressRepository.findByUser(user, pageRequest);
+            return byUser.map(AddressResponse::success);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to retrieve addresses for user id: " + userId + ". Please try again later.", e);
+        }
     }
 
     public AddressResponse updateAddress(Long addressId, WriteAddressRequest writeAddressRequest) {
-        Address address = addressRepository.findById(addressId).orElseThrow(() -> new RuntimeException("address info not found."));
+        try {
+            Address address = addressRepository.findById(addressId).orElseThrow(() -> new RuntimeException("address info not found."));
 
-        if (writeAddressRequest.getPostCode() != null) {
-            address.setPostCode(writeAddressRequest.getPostCode());
+            if (writeAddressRequest.getPostCode() != null) {
+                address.setPostCode(writeAddressRequest.getPostCode());
+            }
+
+            if (writeAddressRequest.getAddress() != null) {
+                address.setAddress(writeAddressRequest.getAddress());
+            }
+
+            if (writeAddressRequest.getAddressDetail() != null) {
+                address.setAddressDetail(writeAddressRequest.getAddressDetail());
+            }
+
+            if (writeAddressRequest.getAddressExtra() != null) {
+                address.setAddressExtra(writeAddressRequest.getAddressExtra());
+            }
+
+            if (writeAddressRequest.getReceiverPhone() != null) {
+                address.setReceiverPhone(writeAddressRequest.getReceiverPhone());
+            }
+
+            if (writeAddressRequest.getReceiverName() != null) {
+                address.setReceiverName(writeAddressRequest.getReceiverName());
+            }
+
+            Address updatedAddress = addressRepository.save(address);
+            return AddressResponse.success(updatedAddress);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to update address. Please check your request and try again.", e);
         }
-
-        if (writeAddressRequest.getAddress() != null) {
-            address.setAddress(writeAddressRequest.getAddress());
-        }
-
-        if (writeAddressRequest.getAddressDetail() != null) {
-            address.setAddressDetail(writeAddressRequest.getAddressDetail());
-        }
-
-        if (writeAddressRequest.getAddressExtra() != null) {
-            address.setAddressExtra(writeAddressRequest.getAddressExtra());
-        }
-
-        if (writeAddressRequest.getReceiverPhone() != null) {
-            address.setReceiverPhone(writeAddressRequest.getReceiverPhone());
-        }
-
-        if (writeAddressRequest.getReceiverName() != null) {
-            address.setReceiverName(writeAddressRequest.getReceiverName());
-        }
-
-        Address updatedAddress = addressRepository.save(address);
-        return AddressResponse.success(updatedAddress);
     }
 
 

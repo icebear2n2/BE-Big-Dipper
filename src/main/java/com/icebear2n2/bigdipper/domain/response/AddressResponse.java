@@ -45,8 +45,4 @@ public class AddressResponse {
     public static AddressResponse success(Address address) {
         return new AddressResponse(true, "Success", new AddressData(address));
     }
-
-    public static AddressResponse failure(String message) {
-        return new AddressResponse(false, message, null);
-    }
 }

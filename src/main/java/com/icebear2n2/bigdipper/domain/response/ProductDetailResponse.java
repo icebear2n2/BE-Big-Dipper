@@ -40,8 +40,4 @@ public class ProductDetailResponse {
     public static ProductDetailResponse success(ProductDetail productDetail) {
         return new ProductDetailResponse(true, "Success", new ProductDetailData(productDetail));
     }
-
-    public static ProductDetailResponse failure(String message) {
-        return new ProductDetailResponse(false, message, null);
-    }
 }
