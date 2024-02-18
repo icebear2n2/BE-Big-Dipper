@@ -32,4 +32,24 @@ public class Product {
 
     @OneToMany(mappedBy = "product")
     private List<ProductDetail> productDetails;
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public void setProductPrice(Integer productPrice) {
+        this.productPrice = productPrice;
+    }
+
+    public void setDiscountPrice(Integer discountPrice) {
+        this.discountPrice = discountPrice;
+    }
+
+    public void setSaleStartDate(Timestamp saleStartDate) {
+        this.saleStartDate = saleStartDate;
+    }
+
+    public void setSaleEndDate(Timestamp saleEndDate) {
+        this.saleEndDate = saleEndDate;
+    }
 }

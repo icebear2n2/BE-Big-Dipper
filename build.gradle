@@ -55,9 +55,11 @@ dependencies {
 //    // Swagger API
 //    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
 
-//    // Eureka Client
-//    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-//    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    // Spring Data Redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+    // Jedis client library
+    implementation 'redis.clients:jedis'
 
     implementation 'com.google.code.gson:gson:2.8.9'
 

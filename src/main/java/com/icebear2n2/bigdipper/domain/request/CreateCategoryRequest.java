@@ -11,7 +11,7 @@ public class CreateCategoryRequest {
 
     public Category toEntity() {
         return Category.builder()
-                .categoryName(categoryName)
+                .categoryName(this.categoryName)
                 .build();
     }
 }
