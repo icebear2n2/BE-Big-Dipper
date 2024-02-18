@@ -6,6 +6,8 @@ import com.icebear2n2.bigdipper.domain.response.CategoryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,22 +16,23 @@ import org.springframework.web.bind.annotation.*;
 public class CategoryController {
     private final CategoryService categoryService;
     @PostMapping
-    public void createCategory(@RequestBody CreateCategoryRequest createCategoryRequest) {
+    public ResponseEntity<Void> createCategory(@RequestBody CreateCategoryRequest createCategoryRequest) {
         categoryService.createCategory(createCategoryRequest);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping
-    public Page<CategoryResponse> getAll(
+    public ResponseEntity<Page<CategoryResponse>> getAll(
             @RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
             @RequestParam(name = "page", required = false, defaultValue = "0") Integer page
     ) {
         PageRequest pageRequest = PageRequest.of(page, size);
 
-        return categoryService.getAll(pageRequest);
+        return new ResponseEntity<>(categoryService.getAll(pageRequest), HttpStatus.OK);
     }
 
     @PutMapping("/{categoryId}")
-    public CategoryResponse updateAddress(@PathVariable Long categoryId, @RequestBody CreateCategoryRequest createCategoryRequest) {
-        return categoryService.updateCategory(categoryId, createCategoryRequest);
+    public ResponseEntity<CategoryResponse> updateAddress(@PathVariable Long categoryId, @RequestBody CreateCategoryRequest createCategoryRequest) {
+        return new ResponseEntity<>(categoryService.updateCategory(categoryId, createCategoryRequest), HttpStatus.OK);
     }
 }
