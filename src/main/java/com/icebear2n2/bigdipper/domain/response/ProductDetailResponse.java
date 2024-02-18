@@ -26,13 +26,13 @@ public class ProductDetailResponse {
         private ProductResponse.ProductData product;
         private List<String> productColor;
         private List<String> productSize;
-        private Integer stockQuantity;
+        private List<Integer> stockQuantity;
 
         public ProductDetailData(ProductDetail productDetail) {
             this.productDetailId = productDetail.getProductDetailId();
             this.product = productDetail.getProduct() != null ? new ProductResponse.ProductData(productDetail.getProduct()) : null;
-            this.productColor = productDetail.getProductColor();
-            this.productSize = productDetail.getProductSize();
+            this.productColor = productDetail.getProductColors();
+            this.productSize = productDetail.getProductSizes();
             this.stockQuantity = productDetail.getStockQuantity();
         }
     }
