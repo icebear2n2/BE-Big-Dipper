@@ -26,7 +26,7 @@ public class CategoryService {
     public Page<CategoryResponse> getAll(PageRequest pageRequest) {
         try {
             Page<Category> all = categoryRepository.findAll(pageRequest);
-            return all.map(CategoryResponse::success);
+            return all.map(CategoryResponse::new);
         } catch (Exception e) {
             throw new RuntimeException("Failed to retrieve categories. Please try again later.", e);
         }
@@ -41,7 +41,7 @@ public class CategoryService {
             }
 
             Category updatedCategory = categoryRepository.save(category);
-            return CategoryResponse.success(updatedCategory);
+            return new CategoryResponse(updatedCategory);
         } catch (Exception e) {
             throw new RuntimeException("Failed to update category. Please check your request and try again.", e);
         }

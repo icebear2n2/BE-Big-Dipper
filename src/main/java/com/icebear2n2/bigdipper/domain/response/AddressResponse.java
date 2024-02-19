@@ -11,15 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddressResponse {
-    private boolean success;
-    private String message;
-    private AddressData data;
-
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class AddressData {
         private Long addressId;
         private Long userId;
         private Integer postCode;
@@ -29,7 +20,7 @@ public class AddressResponse {
         private String receiverPhone;
         private String receiverName;
 
-        public AddressData(Address address) {
+        public AddressResponse(Address address) {
             this.addressId = address.getAddressId();
             this.userId = address.getUser().getUserId();
             this.postCode = address.getPostCode();
@@ -40,9 +31,4 @@ public class AddressResponse {
             this.receiverName = address.getReceiverName();
 
         }
-    }
-
-    public static AddressResponse success(Address address) {
-        return new AddressResponse(true, "Success", new AddressData(address));
-    }
 }

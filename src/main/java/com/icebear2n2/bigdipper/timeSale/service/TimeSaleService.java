@@ -24,7 +24,7 @@ public class TimeSaleService {
     public Page<ProductResponse> getProductStartedTimeSale(PageRequest pageRequest) {
         Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
         Page<Product> saleEndDateAfter = productRepository.findBySaleStartDateBeforeAndSaleEndDateAfter(currentTimestamp, currentTimestamp, pageRequest);
-        return saleEndDateAfter.map(ProductResponse::success);
+        return saleEndDateAfter.map(ProductResponse::new);
     }
 
     public ProductResponse startProductTimeSale(TimeSaleRequest timeSaleRequest) {
@@ -39,7 +39,7 @@ public class TimeSaleService {
             // 세일 종료 시간 Redis Sorted Set 에 저장
             stringRedisTemplate.opsForZSet().add(TIME_SALE_REDIS_KEY, product.getProductId().toString(), product.getSaleEndDate().getTime());
 
-            return ProductResponse.success(savedProduct);
+            return new ProductResponse(savedProduct);
         } catch (Exception e) {
             throw new RuntimeException("Internal server error.");
         }

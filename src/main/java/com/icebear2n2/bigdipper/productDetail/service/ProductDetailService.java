@@ -30,7 +30,7 @@ public class ProductDetailService {
     public Page<ProductDetailResponse> findAllByProduct(Long productId, PageRequest pageRequest) {
         Product product = productRepository.findById(productId).orElseThrow(() -> new RuntimeException("Product not found."));
         Page<ProductDetail> allByProduct = productDetailRepository.findAllByProduct(product, pageRequest);
-        return allByProduct.map(ProductDetailResponse::success);
+        return allByProduct.map(ProductDetailResponse::new);
     }
 
     public ProductDetailResponse updateProductDetail(Long productDetailId, ProductDetailRequest productDetailRequest) {
@@ -54,7 +54,7 @@ public class ProductDetailService {
 
             ProductDetail updatedProductDetail = productDetailRepository.save(productDetail);
 
-            return ProductDetailResponse.success(updatedProductDetail);
+            return new ProductDetailResponse(updatedProductDetail);
         } catch (Exception e) {
             throw new RuntimeException("Failed to update product detail: " + e.getMessage(), e);
         }

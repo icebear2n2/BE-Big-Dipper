@@ -26,7 +26,7 @@ public class ProductService {
     public Page<ProductResponse> getAll(PageRequest pageRequest) {
         try {
             Page<Product> all = productRepository.findAll(pageRequest);
-            return all.map(ProductResponse::success);
+            return all.map(ProductResponse::new);
         } catch (Exception e) {
             throw new RuntimeException("Failed to fetch products: " + e.getMessage(), e);
         }
@@ -45,7 +45,7 @@ public class ProductService {
             }
 
             Product updatedProduct = productRepository.save(product);
-            return ProductResponse.success(updatedProduct);
+            return new ProductResponse(updatedProduct);
 
         } catch (Exception e) {
             throw new RuntimeException("Failed to update product: " + e.getMessage(), e);

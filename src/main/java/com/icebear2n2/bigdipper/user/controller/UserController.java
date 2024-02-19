@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<UserResponse.UserData>> getAll(
+    public ResponseEntity<Page<UserResponse>> getAll(
             @RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
             @RequestParam(name = "page", required = false, defaultValue = "0") Integer page) {
 

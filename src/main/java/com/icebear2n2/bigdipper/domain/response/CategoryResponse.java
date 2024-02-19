@@ -13,28 +13,14 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CategoryResponse {
-    private boolean success;
-    private String message;
-    private CategoryData data;
-
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class CategoryData {
         private Long categoryId;
         private String categoryName;
         private Timestamp createdAt;
         private Timestamp updatedAt;
-        public CategoryData(Category category) {
+        public CategoryResponse(Category category) {
             this.categoryId = category.getCategoryId();
             this.categoryName = category.getCategoryName();
             this.createdAt = category.getCreatedAt();
             this.updatedAt = category.getUpdatedAt();
         }
-    }
-
-    public static CategoryResponse success(Category category) {
-        return new CategoryResponse(true, "Success", new CategoryData(category));
-    }
 }

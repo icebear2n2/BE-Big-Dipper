@@ -13,31 +13,18 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductDetailResponse {
-    private boolean success;
-    private String message;
-    private ProductDetailData data;
 
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class ProductDetailData {
         private Long productDetailId;
-        private ProductResponse.ProductData product;
+        private ProductResponse product;
         private List<String> productColor;
         private List<String> productSize;
         private List<Integer> stockQuantity;
 
-        public ProductDetailData(ProductDetail productDetail) {
+        public ProductDetailResponse(ProductDetail productDetail) {
             this.productDetailId = productDetail.getProductDetailId();
-            this.product = productDetail.getProduct() != null ? new ProductResponse.ProductData(productDetail.getProduct()) : null;
+            this.product = productDetail.getProduct() != null ? new ProductResponse(productDetail.getProduct()) : null;
             this.productColor = productDetail.getProductColors();
             this.productSize = productDetail.getProductSizes();
             this.stockQuantity = productDetail.getStockQuantity();
         }
-    }
-
-    public static ProductDetailResponse success(ProductDetail productDetail) {
-        return new ProductDetailResponse(true, "Success", new ProductDetailData(productDetail));
-    }
 }

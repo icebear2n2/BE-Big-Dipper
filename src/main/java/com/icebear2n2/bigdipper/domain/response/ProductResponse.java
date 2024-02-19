@@ -16,41 +16,27 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductResponse {
-    private boolean success;
-    private String message;
-    private ProductData data;
-
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class ProductData {
         private Long productId;
-        private CategoryResponse.CategoryData category;
+        private CategoryResponse category;
         private String productName;
         private Integer productPrice;
         private Integer discountPrice;
         private Timestamp saleStartDate;
         private Timestamp saleEndDate;
-        private List<ProductDetailResponse.ProductDetailData> productDetails;
+        private List<ProductDetailResponse> productDetails;
         private Timestamp createdAt;
         private Timestamp updatedAt;
 
-        public ProductData(Product product) {
+        public ProductResponse(Product product) {
             this.productId = product.getProductId();
-            this.category = product.getCategory() != null ? new CategoryResponse.CategoryData(product.getCategory()) : null;
+            this.category = product.getCategory() != null ? new CategoryResponse(product.getCategory()) : null;
             this.productName = product.getProductName();
             this.productPrice = product.getProductPrice();
             this.discountPrice = product.getDiscountPrice();
             this.saleStartDate = product.getSaleStartDate();
             this.saleEndDate = product.getSaleEndDate();
-            this.productDetails = product.getProductDetails() != null ? product.getProductDetails().stream().map(ProductDetailResponse.ProductDetailData::new).collect(Collectors.toList()) : null;
+            this.productDetails = product.getProductDetails() != null ? product.getProductDetails().stream().map(ProductDetailResponse::new).collect(Collectors.toList()) : null;
             this.createdAt = product.getCreatedAt();
             this.updatedAt = product.getUpdatedAt();
         }
-    }
-
-    public static ProductResponse success(Product product) {
-        return new ProductResponse(true, "Success", new ProductData(product));
-    }
 }

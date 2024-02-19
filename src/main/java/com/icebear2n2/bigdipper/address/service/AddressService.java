@@ -32,7 +32,7 @@ public class AddressService {
         try {
             User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found."));
             Page<Address> byUser = addressRepository.findByUser(user, pageRequest);
-            return byUser.map(AddressResponse::success);
+            return byUser.map(AddressResponse::new);
         } catch (Exception e) {
             throw new RuntimeException("Failed to retrieve addresses for user id: " + userId + ". Please try again later.", e);
         }
@@ -67,7 +67,7 @@ public class AddressService {
             }
 
             Address updatedAddress = addressRepository.save(address);
-            return AddressResponse.success(updatedAddress);
+            return new AddressResponse(updatedAddress);
         } catch (Exception e) {
             throw new RuntimeException("Failed to update address. Please check your request and try again.", e);
         }

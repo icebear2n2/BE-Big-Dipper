@@ -74,9 +74,9 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public Page<UserResponse.UserData> getAll(PageRequest pageRequest) {
+    public Page<UserResponse> getAll(PageRequest pageRequest) {
         Page<User> all = userRepository.findAll(pageRequest);
-        return all.map(UserResponse.UserData::new);
+        return all.map(UserResponse::new);
     }
 
     public void removeUser(Long userId) {

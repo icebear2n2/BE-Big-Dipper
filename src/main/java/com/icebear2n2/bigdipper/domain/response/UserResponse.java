@@ -12,15 +12,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserResponse {
-    private boolean success;
-    private String message;
-    private UserData data;
-
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class UserData {
         private Long userId;
         private String username;
         private String nickname;
@@ -33,7 +24,7 @@ public class UserResponse {
         private String updatedAt;
         private String deletedAt;
 
-        public UserData(User user) {
+        public UserResponse(User user) {
             this.userId = user.getUserId();
             this.username = user.getUsername();
             this.nickname = user.getNickname();
@@ -46,10 +37,4 @@ public class UserResponse {
             this.updatedAt = user.getUpdatedAt().toString();
             this.deletedAt = user.getDeletedAt() != null ? user.getDeletedAt().toString() : null;
         }
-    }
-
-    public static UserResponse success(User user) {
-        return new UserResponse(true, "Success", new UserData(user));
-    }
-
 }
